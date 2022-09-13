@@ -1,0 +1,8 @@
+
+requests
+PyYAML
+httpx
+fastapi
+uvicorn
+flask
+authlib
