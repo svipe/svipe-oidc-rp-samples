@@ -1,0 +1,35 @@
+
+default:
+  issuer:         'https://api.svipe.com/oidc/v1'
+  client_id:      'svipe-demo'
+  client_secret:  'svipe-demo-secret'
+  scope:          'openid profile'
+  pkce:           True
+
+nopkce:
+  issuer:         'https://api.svipe.com/oidc/v1'
+  client_id:      'svipe-demo'
+  client_secret:  'svipe-demo-secret'
+  scope:          'openid profile'
+  pkce:           False
+
+email:
+  issuer:         'https://api.svipe.com/oidc/v1'
+  client_id:      'svipe-demo'
+  client_secret:  'svipe-demo-secret'
+  scope:          'openid profile email'
+  pkce:           True
+
+phone:
+  issuer:         'https://api.svipe.com/oidc/v1'
+  client_id:      'svipe-demo'
+  client_secret:  'svipe-demo-secret'
+  scope:          'openid profile phone'
+  pkce:           True
+
+email+phone:
+  issuer:         'https://api.svipe.com/oidc/v1'
+  client_id:      'svipe-demo'
+  client_secret:  'svipe-demo-secret'
+  scope:          'openid profile email phone'
+  pkce:           True

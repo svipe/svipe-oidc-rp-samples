@@ -1,0 +1,21 @@
+{#
+    Copyright (c) 2022 Svipe AB (https://www.svipe.com)
+    Author: Stefan Farestam <stefan@svipe.com>
+    You may use, distribute and modify this code under the terms of the MIT License
+#}
+
+
+{% extends "_page.html" %}
+
+{% block content %}
+    <div class="centered-item">
+        <h3>You are logged in as:</h3>
+        Given name:  <b>{{ userinfo.given_name }}</b><br>
+        Family name: <b>{{ userinfo.family_name }}</b><br>
+        Svipeid:     <b>{{ userinfo.svipeid }}</b><br>
+    </div>
+
+    <div class="centered-item vspace-3">
+        <a class="button-pillbox" href="/logout">LOGOUT</a>
+    </div>
+{% endblock %}

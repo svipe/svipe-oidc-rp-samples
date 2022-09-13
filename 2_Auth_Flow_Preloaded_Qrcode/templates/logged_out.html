@@ -1,0 +1,101 @@
+{#
+    Copyright (c) 2022 Svipe AB (https://www.svipe.com)
+    Author: Stefan Farestam <stefan@svipe.com>
+    You may use, distribute and modify this code under the terms of the MIT License
+#}
+
+
+{% extends "_page.html" %}
+
+{% block content %}
+    <div id="intro">
+        <div class="centered-item">
+            <h3>You are logged out</h3>
+        </div>
+
+        <div class="mobile-only">
+            <div class="centered-item">
+                Svipe iD installed on this device?<br>
+                Then click here:      
+            </div>
+            <div class="centered-item vspace-3">
+                <a class="button-pillbox"
+                href="https://app.svipe.com/a/{{ auth_session }}?ondevice">LOGIN WITH SVIPE</a>
+            </div>
+            <div class="centered-item vspace-2">
+                otherwise, scan this code <br>with Svipe iD to login:
+            </div>
+        </div>
+
+        <div class="screen-only">
+            <h5>Please scan this code<br>with Svipe iD to login:</h5>
+        </div>
+
+        <div class="centered-item">
+            <div id="qrcode" align="center"></div>
+        </div>
+    </div>
+
+    <div id="progress" class="centered-item">
+        <h4>Waiting for approval</h4>
+        <div class="spinner"></div>
+    </div>
+
+
+    <!-- Generate the QR code -->
+    <script type="text/javascript">
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text:           "app.svipe.com/a/{{ auth_session }}",
+            width:          128,
+            height:         128,
+            colorDark :     "#000000",
+            colorLight :    "#ffffff",
+            correctLevel :  QRCode.CorrectLevel.M
+        });
+    </script>
+
+
+    <script>
+        var auth_server    = "{{ auth_server }}";
+        var auth_session   = "{{ auth_session }}";
+
+        function setVisibility(id, visibility) {
+            const elem = document.getElementById(id);
+            if (elem) {
+                elem.style.display = visibility;
+            }
+        }
+
+        console.log("setting up socket", auth_server, auth_session);
+
+        // Setup the socket connection to the Svipe auth server
+        const socket = io(auth_server, {
+            transports:         ['websocket'],
+            upgrade:            false,
+            path:               '/sio/socket.io',
+            withCredentials:    true});
+
+        // Callback that is triggered when the qr code is read
+        socket.on('qrread', () => {
+            console.log("----- qr code read");
+            setVisibility('intro',    'none')
+            setVisibility('progress', 'initial')
+        });
+
+        // Callback that is triggered when redirecting
+        socket.on('redirect', (redirect_to) => {
+            console.log("----- redirecting to: ", redirect_to.uri);
+            setVisibility('progress',   'none')
+            setVisibility('success',    'initial')
+            window.location.href = redirect_to.uri;
+        });
+
+        // Register the session with the auth server
+        socket.emit("register", { 
+            auth_session:   auth_session,
+            location:       window.location.href,
+            useragent:      navigator.userAgent,
+        });
+    </script> 
+
+{% endblock %}

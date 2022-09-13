@@ -1,0 +1,72 @@
+{#
+    Copyright (c) 2022 Svipe AB (https://www.svipe.com)
+    Author: Stefan Farestam <stefan@svipe.com>
+    You may use, distribute and modify this code under the terms of the MIT License
+#}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Svipe iD Test</title>
+
+    <style>
+        html, body  {
+            background-color: white!important;
+            height:     100%;
+            width:      100%;
+            margin:     0px;
+            padding:    0px;
+            font-family: -apple-system,Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+        }
+
+        .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+            font-weight: 500;
+        }
+
+        .h3, h3 {font-size: 1.75rem;}
+        .h4, h4 {font-size: 1.50rem;}
+        .h5, h5 {font-size: 1.25rem;}
+
+        .header     {background-color: black; color: white; line-height: 100%;}
+        .main       {background-color: white; color: black; line-height: 150%;}
+
+        .button-pillbox {
+            display: inline-block;
+            background-color:#FF8000;
+            color:           #FFFFFF;
+            text-align:      center;
+            text-decoration: none;
+            padding: 0.5rem 2rem;
+            border-radius: 50rem; 
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .centered-item {
+            width:      100%;
+            text-align: center;
+            padding: 0px;
+            margin: 0px;
+        }
+        
+        .vspace-1 {margin-top: 0.2rem!important; margin-bottom: 0.2rem!important;}
+        .vspace-2 {margin-top: 0.4rem!important; margin-bottom: 0.4rem!important;}
+        .vspace-3 {margin-top: 0.8rem!important; margin-bottom: 0.8rem!important;}
+    </style>
+</head>
+
+<body>
+    <div class="header centered-item">
+        <img width="140" class="vspace-2" alt="Svipe iD" src="/static/svipe-logo.png"/>
+    </div>
+    <div class="main centered-item">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>
